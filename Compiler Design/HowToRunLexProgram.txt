@@ -1,0 +1,5 @@
+After the files are created
+
+> lex sample.;
+> cc lex.yy.c
+> ./a.out filename.ext
