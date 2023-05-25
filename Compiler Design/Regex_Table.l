@@ -16,7 +16,7 @@ dob [0-9]+[-][a-zA-z]*[-][0-9]+
 {phoneno} {printf(" %s-PhoneNumber\t",yytext);}
 {dob} {printf(" %s-DOB\n",yytext);}
 %% 
-int main(int argc,char **argv){
+int main(int argc,char **argv) {
 if(argc>1){
 FILE *f1;
 f1=fopen(argv[1],"r");
