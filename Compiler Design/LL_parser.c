@@ -48,7 +48,7 @@ int main()
         }
         else
         {
-            if (stack[top - 1] == 'E' && (ip[i] == 'x' || ip[i] == '('))
+            if (stack[top - 1] == 'E' && (ip[i] == 'i' || ip[i] == '('))
             {
                 printf("\nE->TA\n");
                 pop();
@@ -68,7 +68,7 @@ int main()
                 printf("\nA->epsilon");
                 pop();
             }
-            else if (stack[top - 1] == 'T' && (ip[i] == 'x' || ip[i] == '('))
+            else if (stack[top - 1] == 'T' && (ip[i] == 'i' || ip[i] == '('))
             {
                 printf("\nT->FB\n");
                 pop();
@@ -88,11 +88,11 @@ int main()
                 push('F');
                 push('*');
             }
-            else if (stack[top - 1] == 'F' && ip[i] == 'x')
+            else if (stack[top - 1] == 'F' && ip[i] == 'i')
             {
-                printf("\nF->id\n");
+                printf("\nF->i\n");
                 pop();
-                push('x');
+                push('i');
             }
             else if (stack[top - 1] == 'F' && ip[i] == '(')
             {
