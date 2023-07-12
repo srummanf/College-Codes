@@ -9,7 +9,7 @@ dob [0-9]+[-][a-zA-z]*[-][0-9]+
 %%
 {name} {printf(" %s-Name\t",yytext);}
 {delim}
-{email} {printf(" %s-VITEmailId",yytext);}
+{email} {printf(" %s-VITEmailId",yytext);     }
 {nanumber} {printf(" %s-NotApplication\t",yytext);}
 {number} {printf(" %s-ApplicationNumber\t",yytext);}
 {regnumber} {printf(" %s-RegNumber\t",yytext);}
