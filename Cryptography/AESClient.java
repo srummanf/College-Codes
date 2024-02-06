@@ -3,8 +3,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Base64;
 
-public class AESClient
-{
+public class aesclient {
     public static void main(String[] args) {
         try {
             Socket socket = new Socket("localhost", 5555);
@@ -21,7 +20,7 @@ public class AESClient
             while (true) {
                 // Client receives and decrypts the message
                 String serverEncryptedMessage = serverIn.readLine();
-                Cipher cipher = Cipher.getInstance("AES");
+                Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding"); // Use the same cipher instance
                 cipher.init(Cipher.DECRYPT_MODE, secretKey);
                 byte[] decryptedMessage = cipher.doFinal(Base64.getDecoder().decode(serverEncryptedMessage));
 
