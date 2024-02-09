@@ -44,9 +44,8 @@ def multiplicative_inverse(e, phi):
 
 
 '''
-Tests to see if a number is prime.
+Function to get random prime number
 '''
-
 
 def is_prime(num):
     if num == 2:
@@ -63,12 +62,6 @@ def generate_random_prime():
         num = random.randint(2, 10**6)  # Adjust the upper bound as needed
         if is_prime(num):
             return num
-
-# Example usage:
-random_prime = generate_random_prime()
-print("Random prime number:", random_prime)
-
-
 
 def generate_key_pair(p, q):
     if not (is_prime(p) and is_prime(q)):
@@ -121,21 +114,26 @@ if __name__ == '__main__':
     '''
     Detect if the script is being run directly by the user
     '''
-    print("===========================================================================================================")
-    print("================================== RSA Encryptor / Decrypter ==============================================")
-    print(" ")
-
-    # p = int(input(" - Enter a prime number (17, 19, 23, etc): "))
-    # q = int(input(" - Enter another prime number (Not one you entered above): "))
+    # print("===========================================================================================================")
+    # print("================================== RSA Encryptor / Decrypter ==============================================")
+    # print(" ")
 
     p = generate_random_prime()
     q = generate_random_prime()
     
+    print(" The value of p : ", p)
+    print(" The value of q : ", q)
+    print("")
+    
     print(" - Generating your public / private key-pairs now . . .")
+    print("")
 
     public, private = generate_key_pair(p, q)
 
-    print(" - Your public key is ", public, " and your private key is ", private)
+    print(" - Your PUBLIC key is ", public)
+    print("")
+    print(" - Your PRIVATE key is ", private)
+    print("")
 
     message = input(" - Enter a message to encrypt with your public key: ")
     encrypted_msg = encrypt(public, message)
@@ -145,5 +143,5 @@ if __name__ == '__main__':
     print(" - Your message is: ", decrypt(private, encrypted_msg))
 
     print(" ")
-    print("============================================ END ==========================================================")
-    print("===========================================================================================================")
+    # print("============================================ END ==========================================================")
+    # print("===========================================================================================================")
