@@ -1,7 +1,8 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class DiffieHellmanMITM {
+
+class DiffieHellmanMITM {
     static int p, g;
 
     public static void main(String[] args) {
