@@ -2,7 +2,7 @@
 /**
  * Horizontal View:
  * The horizontal view of a binary tree shows the nodes from left to right at
- * each level.
+ * each level. 
  * Nodes at the same level are listed in the order of their appearance, from
  * left to right.
  * Example:

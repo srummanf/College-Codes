@@ -11,7 +11,7 @@ class TreeNode {
 }
 
 public class BoundaryTraversal {
-
+ 
     private static void printLeaves(TreeNode root) {
         if (root != null) {
             printLeaves(root.left);

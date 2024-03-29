@@ -21,7 +21,6 @@ output:
 
  */
 
-
 import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 
@@ -56,7 +55,7 @@ public class VerticalOrderTraversal {
 
                         TreeNode node = entry.getKey();
                         int col = entry.getValue();
-                        
+
                         verticalMap.computeIfAbsent(col, k -> new ArrayList<>()).add(node.val);
                         if (node.left != null) {
                                 nodeQueue.offer(new SimpleEntry<>(node.left, col - 1));
@@ -67,7 +66,7 @@ public class VerticalOrderTraversal {
                         }
                 }
                 for (List<Integer> values : verticalMap.values()) {
-                        result.add(values);
+                        result.add (values);
                 }
                 return result;
         }
