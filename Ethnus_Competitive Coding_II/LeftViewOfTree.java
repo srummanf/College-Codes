@@ -38,10 +38,15 @@ public class LeftViewOfTree {
         if (root == null) {
             return leftView;
         }
+
         Queue<TreeNode> nodeQueue = new LinkedList<>();
+
         nodeQueue.offer(root);
+
         while (!nodeQueue.isEmpty()) {
+
             int levelSize = nodeQueue.size();
+
             for (int i = 0; i < levelSize; i++) {
                 TreeNode node = nodeQueue.poll();
 
@@ -60,6 +65,17 @@ public class LeftViewOfTree {
         return leftView;
     }
 
+    public static void leftViewRecursive(TreeNode curr, int currdepth, ArrayList<Character> ans) {
+        if (curr == null)
+            return;
+
+        if (currdepth == ans.size()) {
+            ans.add(curr.val);
+        }
+        leftViewRecursive(curr.left, currdepth + 1, ans);
+        leftViewRecursive(curr.right, currdepth + 1, ans);
+    }
+
     public static void main(String[] args) {
         // Sample binary tree input
         TreeNode root = new TreeNode('A');
@@ -69,6 +85,11 @@ public class LeftViewOfTree {
         root.left.right = new TreeNode('E');
         root.right.left = new TreeNode('F');
         root.right.right = new TreeNode('G');
+
+        ArrayList<Character> leftViewResultRecursive = new ArrayList<Character>();
+        leftViewRecursive(root, 0, leftViewResultRecursive);
+        System.out.println(leftViewResultRecursive);
+
         List<Character> leftViewResult = leftView(root);
         // Printing the Left View
         System.out.print("Left View: ");

@@ -6,9 +6,9 @@
  * It includes the rightmost node at each level.
  * Example:
  * 
- * A
- * / \
- * B C
+ *    A
+ *   / \
+ *  B   C
  * / \ / \
  * D E F G
  * 
@@ -61,6 +61,17 @@ public class RightViewOfTree {
         return rightView;
     }
 
+    public static void rightViewRecursive(TreeNode curr, int currdepth, ArrayList<Character> ans) {
+        if (curr == null)
+            return;
+
+        if (currdepth == ans.size()) {
+            ans.add(curr.val);
+        }
+        rightViewRecursive(curr.right, currdepth + 1, ans);
+        rightViewRecursive(curr.left, currdepth + 1, ans);
+    }
+
     public static void main(String[] args) {
         // Sample binary tree input
         TreeNode root = new TreeNode('A');
@@ -70,6 +81,11 @@ public class RightViewOfTree {
         root.left.right = new TreeNode('E');
         root.right.left = new TreeNode('F');
         root.right.right = new TreeNode('G');
+
+        ArrayList<Character> rightViewResultRecursive = new ArrayList<Character>();
+        rightViewRecursive(root, 0, rightViewResultRecursive);
+        System.out.println(rightViewResultRecursive);
+
         List<Character> rightViewResult = rightView(root);
         // Printing the Right View
         System.out.print("Right View: ");
@@ -79,3 +95,13 @@ public class RightViewOfTree {
         System.out.println();
     }
 }
+
+// f(node, level){
+// if(node==null) return;
+
+// if(level==ds.size){
+// ds.add(node);
+// }
+// f(node.right, level+1);
+// f(node.left, level+1);
+// }

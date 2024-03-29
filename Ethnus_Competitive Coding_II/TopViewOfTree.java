@@ -45,10 +45,12 @@ public class TopViewOfTree {
     public static List<Character> topView(TreeNode root) {
 
         List<Character> topView = new ArrayList<>();
+
         if (root == null) {
             return topView;
         }
 
+        // New data Structure : TreeMap
         Map<Integer, Character> verticalMap = new TreeMap<>();
         Queue<Pair> queue = new LinkedList<>();
 
@@ -74,7 +76,7 @@ public class TopViewOfTree {
             }
 
         }
-        
+
         for (char nodeVal : verticalMap.values()) {
             topView.add(nodeVal);
         }

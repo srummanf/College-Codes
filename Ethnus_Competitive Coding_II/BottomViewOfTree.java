@@ -45,24 +45,32 @@ class NodeInfo {
 public class BottomViewOfTree {
 
     public static List<Character> bottomView(TreeNode root) {
-        List<Character> bottomView = new ArrayList<>();
+        List<Character> bottomView = new ArrayList<>(); 
         if (root == null) {
             return bottomView;
-        }
+        } 
+
         Map<Integer, Character> bottomMap = new TreeMap<>();
-        Queue<NodeInfo> nodeQueue = new LinkedList<>();
-        nodeQueue.offer(new NodeInfo(root,
+        Queue<NodeInfo> queue = new LinkedList<>();
+
+        queue.offer(new NodeInfo(root,
                 0));
-        while (!nodeQueue.isEmpty()) {
-            NodeInfo info = nodeQueue.poll();
+
+        while (!queue.isEmpty()) {
+
+            NodeInfo info = queue.poll();
+
             TreeNode node = info.node;
             int hd = info.hd;
+            // In Top View we used to check for a condition that if the line number hd is not in the map then only add
+            // if(!bottomMap.containsKey(hd)){ bottomMap.put(hd, node)} 
             bottomMap.put(hd, node.val);
+
             if (node.left != null) {
-                nodeQueue.offer(new NodeInfo(node.left, hd - 1));
+                queue.offer(new NodeInfo(node.left, hd - 1));
             }
             if (node.right != null) {
-                nodeQueue.offer(new NodeInfo(node.right, hd + 1));
+                queue.offer(new NodeInfo(node.right, hd + 1));
             }
         }
         for (char value : bottomMap.values()) {
