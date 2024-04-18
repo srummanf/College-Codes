@@ -45,3 +45,15 @@ public class BoundaryTraversal {
         boundaryTraversal(root);
     }
 }
+
+
+// insert(root, val){
+//     if(root.left==null and root.right==null){
+//         return root = new TreeNode(val);
+//     } else if(val < root.left){
+//         root.left = insert(root.left, val);
+//     } else {
+//         insert(root.right, val);
+//     }
+// }
+// TreeNode root = null;

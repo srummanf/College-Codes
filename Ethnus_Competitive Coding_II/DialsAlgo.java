@@ -2,6 +2,16 @@
 import java.util.*;
 
 class Graph {
+    static class Node {
+        int vertex;
+        int weight;
+
+        public Node(int vertex, int weight) {
+            this.vertex = vertex;
+            this.weight = weight;
+        }
+    }
+    
     private int V;
     private List<List<Node>> adj;
 
@@ -43,15 +53,7 @@ class Graph {
         }
     }
 
-    static class Node {
-        int vertex;
-        int weight;
-
-        public Node(int vertex, int weight) {
-            this.vertex = vertex;
-            this.weight = weight;
-        }
-    }
+    
 }
 
 public class DialsAlgo {
