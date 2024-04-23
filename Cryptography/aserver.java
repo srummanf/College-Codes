@@ -4,9 +4,7 @@ import java.net.Socket;
 import java.util.Base64;
 import javax.crypto.*;
 
-//use des for DES
-
-public class aesserver {
+public class aserver {
 
     public static void main(String[] args) {
         try {

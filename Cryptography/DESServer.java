@@ -4,58 +4,69 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.security.InvalidKeyException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
 public class DESServer {
 
-    public static void main(String[] args) throws IOException {
-        ServerSocket ss = new ServerSocket(2004);
-        System.out.println("Server started...");
-
-        Socket s = ss.accept();
-        System.out.println("Client connected!");
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-        PrintWriter pw = new PrintWriter(s.getOutputStream(), true);
-
-        String encryptedMessage = br.readLine();
-        String keyString = "0F1571C947D9E859"; // Replace with your DES key
-
-        // Decode the key
-        byte[] keyBytes = hexStringToByteArray(keyString);
-        SecretKey secretKey = new SecretKeySpec(keyBytes, 0, keyBytes.length, "DES");
-
-        // Decrypt the message
-        String decryptedMessage = decrypt(encryptedMessage, secretKey);
-        pw.println(decryptedMessage);
-
-        br.close();
-        pw.close();
-        s.close();
-        ss.close();
-    }
-
-    private static String decrypt(String input, SecretKey secretKey) {
+    public static void main(String[] args) {
         try {
-            Cipher cipher = Cipher.getInstance("DES");
-            cipher.init(Cipher.DECRYPT_MODE, secretKey);
-            byte[] decodedBytes = Base64.getDecoder().decode(input);
-            byte[] decryptedBytes = cipher.doFinal(decodedBytes);
-            return new String(decryptedBytes);
+            ServerSocket serverSocket = new ServerSocket(5555);
+            System.out.println("Server waiting for connection...");
+
+            Socket socket = serverSocket.accept();
+            System.out.println("Client connected");
+
+            // Replace the keyString with your DES key
+            String keyString = "01234567";
+            byte[] keyBytes = keyString.getBytes();
+
+            // Ensure the key size is correct
+            if (keyBytes.length != 8) {
+                throw new InvalidKeyException("Invalid DES key size");
+            }
+
+            // Generate DES key
+            KeySpec keySpec = new DESKeySpec(keyBytes);
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+            SecretKey secretKey = keyFactory.generateSecret(keySpec);
+
+            // Set up input and output streams
+            BufferedReader serverIn = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader clientIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter clientOut = new PrintWriter(socket.getOutputStream(), true);
+
+            while (true) {
+                // Server sends a message
+                System.out.print("Server: ");
+                String serverMessage = serverIn.readLine();
+
+                // Encrypt the message
+                Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+                cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+                byte[] encryptedMessage = cipher.doFinal(serverMessage.getBytes());
+
+                // Print the encrypted message
+                System.out.println(
+                        "Encrypted Message: " +
+                                Base64.getEncoder().encodeToString(encryptedMessage));
+
+                // Send the encrypted message to the client
+                clientOut.println(Base64.getEncoder().encodeToString(encryptedMessage));
+
+                // Client receives and decrypts the message
+                String clientEncryptedMessage = clientIn.readLine();
+                cipher.init(Cipher.DECRYPT_MODE, secretKey);
+                byte[] decryptedMessage = cipher.doFinal(
+                        Base64.getDecoder().decode(clientEncryptedMessage));
+
+                // Print the decrypted message
+                System.out.println(
+                        "Client: Decrypted Message: " + new String(decryptedMessage));
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return "Error decrypting message";
         }
-    }
-
-    private static byte[] hexStringToByteArray(String s) {
-        int len = s.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                                 + Character.digit(s.charAt(i+1), 16));
-        }
-        return data;
     }
 }
