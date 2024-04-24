@@ -26,7 +26,7 @@ public class DSS_Client {
         oos.writeObject(data);
         oos.writeObject(signature);
         oos.flush();
-        
+
         System.out.println("Message and Signature sent to Server.");
         socket.close();
         
