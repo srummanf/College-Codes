@@ -45,7 +45,7 @@ def multiplicative_inverse(e, phi):
 
 '''
 Function to get random prime number
-'''-
+'''
 
 def is_prime(num):
     if num == 2:
