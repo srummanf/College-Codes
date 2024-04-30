@@ -48,13 +48,12 @@ Function to get random prime number
 '''
 
 def is_prime(num):
-    if num == 2:
-        return True
-    if num < 2 or num % 2 == 0:
-        return False
-    for n in range(3, int(num**0.5)+2, 2):
-        if num % n == 0:
-            return False
+    count = 0
+    for i in range(1,num):
+        if(num%i == 0):
+            count = count + 1
+            if(count > 2):
+                return False
     return True
 
 def generate_random_prime():
