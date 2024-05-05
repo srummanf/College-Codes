@@ -13,14 +13,12 @@ import java.util.*;
 
 public class LongestCommonSubsequence {
 
-  static String ans = "";
-
   // Recursive Solution
   int LCS_recursion(String s1, String s2, int i1, int i2) {
     if (i1 < 0 || i2 < 0) return 0;
-    if (s1.charAt(i1) == s2.charAt(i2)) {
-      return (1 + LCS_recursion(s1, s2, i1 - 1, i2 - 1));
-    } else return Math.max(
+    if (s1.charAt(i1) == s2.charAt(i2)) return (
+      1 + LCS_recursion(s1, s2, i1 - 1, i2 - 1)
+    ); else return Math.max(
       LCS_recursion(s1, s2, i1 - 1, i2),
       LCS_recursion(s1, s2, i1, i2 - 1)
     );
@@ -30,17 +28,15 @@ public class LongestCommonSubsequence {
   int LCS_memoization(String s1, String s2, int i1, int i2, int[][] dp) {
     if (i1 < 0 || i2 < 0) return 0; else {
       if (dp[i1][i2] != -1) return dp[i1][i2]; else {
-        if (s1.charAt(i1) == s2.charAt(i2)) {
-          return dp[i1][i2] = 1 + LCS_memoization(s1, s2, i1 - 1, i2 - 1, dp);
-        } else {
-          return (
-            dp[i1][i2] =
-              Math.max(
-                LCS_memoization(s1, s2, i1 - 1, i2, dp),
-                LCS_memoization(s1, s2, i1, i2 - 1, dp)
-              )
-          );
-        }
+        if (s1.charAt(i1) == s2.charAt(i2)) return (
+          dp[i1][i2] = 1 + LCS_memoization(s1, s2, i1 - 1, i2 - 1, dp)
+        ); else return (
+          dp[i1][i2] =
+            Math.max(
+              LCS_memoization(s1, s2, i1 - 1, i2, dp),
+              LCS_memoization(s1, s2, i1, i2 - 1, dp)
+            )
+        );
       }
     }
   }
@@ -81,7 +77,5 @@ public class LongestCommonSubsequence {
     System.out.println(
       ob.LCS_memoization(s1, s2, s1.length() - 1, s2.length() - 1, matrix)
     );
-
-    System.out.println(ans);
   }
 }

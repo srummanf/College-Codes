@@ -43,6 +43,8 @@ public class BoundaryTraversal {
 
         // Calling the boundaryTraversal function
         boundaryTraversal(root);
+        System.out.println();
+        printLeaves(root);
     }
 }
 

@@ -13,10 +13,6 @@ class DistributeItemsEvenly {
         hash.put(arr[i], hash.get(arr[i]) + 1);
       }
     }
-    // Check for each value in hash
-    // for (Map.Entry x : hash.entrySet()) {
-    //   if ((int) x.getValue() > 2 * k) return false;
-    // }
 
     for (int i = 0; i < n; i++) {
       if (hash.get(arr[i]) > 2 * k) {

@@ -1,99 +1,97 @@
-
 /**
- * Bottom view:
- * The Bottom View showcases nodes visible from the bottom of the tree when
- * viewed from below.
- * It shows the nodes at the lowest vertical level.
+ * Top view:
+ * The Top View displays nodes visible from the top of the tree when viewed from
+ * above.
+ * It shows the outermost nodes at each vertical level.
  * Example:
- * 
+ *
  * A
  * / \
  * B C
  * / / \
  * D E F
- * \
- * G
- * 
- * Bottom View: D E G F
- * 
+ *
+ * Top View: D B A C F
+ *
  */
 
 import java.util.*;
 
 class TreeNode {
-    char val;
-    TreeNode left;
-    TreeNode right;
 
-    public TreeNode(char val) {
-        this.val = val;
-        left = null;
-        right = null;
-    }
-}
+  char val;
+  TreeNode left;
+  TreeNode right;
 
-class NodeInfo {
-    TreeNode node;
-    int hd;
-
-    public NodeInfo(TreeNode node, int hd) {
-        this.node = node;
-        this.hd = hd;
-    }
+  public TreeNode(char val) {
+    this.val = val;
+    left = null;
+    right = null;
+  }
 }
 
 public class BottomViewOfTree {
 
-    public static List<Character> bottomView(TreeNode root) {
-        List<Character> bottomView = new ArrayList<>(); 
-        if (root == null) {
-            return bottomView;
-        } 
+  public static List<Character> topView(TreeNode root) {
+    List<Character> topView = new ArrayList<>();
 
-        Map<Integer, Character> bottomMap = new TreeMap<>();
-        Queue<NodeInfo> queue = new LinkedList<>();
-
-        queue.offer(new NodeInfo(root,
-                0));
-
-        while (!queue.isEmpty()) {
-
-            NodeInfo info = queue.poll();
-
-            TreeNode node = info.node;
-            int hd = info.hd;
-            // In Top View we used to check for a condition that if the line number hd is not in the map then only add
-            // if(!bottomMap.containsKey(hd)){ bottomMap.put(hd, node)} 
-            bottomMap.put(hd, node.val);
-
-            if (node.left != null) {
-                queue.offer(new NodeInfo(node.left, hd - 1));
-            }
-            if (node.right != null) {
-                queue.offer(new NodeInfo(node.right, hd + 1));
-            }
-        }
-        for (char value : bottomMap.values()) {
-            bottomView.add(value);
-        }
-        return bottomView;
+    if (root == null) {
+      return topView;
     }
 
-    public static void main(String[] args) {
+    // New data Structure : TreeMap
+    Map<Integer, Character> verticalMap = new TreeMap<>();
+    // Queue<Pair> queue = new LinkedList<>();
+    Queue<TreeNode> nodeQueue = new LinkedList<>();
+    Queue<Integer> hdQueue = new LinkedList<>();
 
-        TreeNode root = new TreeNode('A');
-        root.left = new TreeNode('B');
-        root.right = new TreeNode('C');
-        root.left.left = new TreeNode('D');
-        root.right.left = new TreeNode('E');
-        root.right.right = new TreeNode('F');
-        root.right.right.right = new TreeNode('G');
-        List<Character> bottomViewResult = bottomView(root);
-        // Printing the Bottom View
-        System.out.print("Bottom View: ");
-        for (char node : bottomViewResult) {
-            System.out.print(node + " ");
-        }
-        System.out.println();
+    // queue.offer(new Pair(root, 0));
+    nodeQueue.offer(root);
+    hdQueue.offer(0);
+
+    while (!nodeQueue.isEmpty()) {
+      // Pair pair = queue.poll();
+
+      TreeNode node = nodeQueue.poll();
+      int hd = hdQueue.poll();
+
+    
+        verticalMap.put(hd, node.val);
+      
+
+      if (node.left != null) {
+        nodeQueue.offer(node.left);
+        hdQueue.offer(hd - 1);
+        // queue.offer(new Pair(node.left, hd - 1));
+      }
+
+      if (node.right != null) {
+        nodeQueue.offer(node.right);
+        hdQueue.offer(hd + 1);
+        // queue.offer(new Pair(node.right, hd + 1));
+      }
     }
+
+    for (char nodeVal : verticalMap.values()) {
+      topView.add(nodeVal);
+    }
+    return topView;
+  }
+
+  public static void main(String[] args) {
+    // Sample binary tree input
+    TreeNode root = new TreeNode('A');
+    root.left = new TreeNode('B');
+    root.right = new TreeNode('C');
+    root.left.left = new TreeNode('D');
+    root.right.left = new TreeNode('E');
+    root.right.right = new TreeNode('F');
+    List<Character> topViewResult = topView(root);
+    // Printing the Bottom View
+    System.out.print("Bottom View: ");
+    for (char node : topViewResult) {
+      System.out.print(node + " ");
+    }
+    System.out.println();
+  }
 }
