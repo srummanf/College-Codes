@@ -26,6 +26,7 @@ public class subsetSumEqualsToTarget {
       return arr[0] == target;
 
     boolean nottake = f(ind - 1, target, arr);
+    
     boolean take = false;
     if (arr[ind] <= target) {
       take = f(ind - 1, target - arr[ind], arr);

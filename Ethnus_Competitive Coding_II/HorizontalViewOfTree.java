@@ -33,7 +33,21 @@ class TreeNode {
     }
 }
 
+
 public class HorizontalViewOfTree {
+
+    public static TreeNode insert(TreeNode root, char val) {
+        if (root == null) {
+            return new TreeNode(val);
+        }
+        if (val < root.val) {
+            root.left = insert(root.left, val);
+        } else if (val > root.val) {
+            root.right = insert(root.right, val);
+        }
+        return root;
+    }
+    
     public static List<Character> horizontalView(TreeNode root) {
         List<Character> horizontalView = new ArrayList<>();
         if (root == null) {
@@ -47,7 +61,6 @@ public class HorizontalViewOfTree {
                 TreeNode node = queue.poll();
                 horizontalView.add(node.val);
                 if (node.left != null) {
-
                     queue.offer(node.left);
                 }
                 if (node.right != null) {
@@ -63,12 +76,11 @@ public class HorizontalViewOfTree {
     public static void main(String[] args) {
         // Sample binary tree input
         TreeNode root = new TreeNode('A');
-        root.left = new TreeNode('B');
-        root.right = new TreeNode('C');
-        root.left.left = new TreeNode('D');
-        root.left.right = new TreeNode('E');
-        root.right.left = new TreeNode('F');
-        root.right.right = new TreeNode('G');
+        insert(root, 'B');
+        insert(root, 'C');
+        insert(root, 'D');
+        insert(root, 'E');
+        insert(root, 'F');
 
         List<Character> horizontalViewResult = horizontalView(root);
         // Printing the Horizontal View
