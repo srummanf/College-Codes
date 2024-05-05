@@ -14,9 +14,6 @@ public class StockSpanner {
 
     Stack<ArrayList<Integer>> stack = new Stack<>();
 
-    // public StockSpanner() {
-    //     stack = new Stack<>();
-    // }
 
     public int span(int price) {
         int span = 1; // currently span of price is 1 which is itself
@@ -35,7 +32,6 @@ public class StockSpanner {
         int[] prices = { 100, 80, 60, 70, 60, 75, 85 };
         for (int price : prices) {
             System.out.println(stockSpanner.span(price));
-            // arr.add(stockSpanner.span(price))
         }
     }
 }

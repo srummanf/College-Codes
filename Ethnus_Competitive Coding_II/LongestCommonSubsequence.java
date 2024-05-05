@@ -24,6 +24,22 @@ public class LongestCommonSubsequence {
     );
   }
 
+  static String LCS(String s1, String s2, int i1, int i2) {
+    if (i1 < 0 || i2 < 0) {
+      return "";
+    }
+
+    if (s1.charAt(i1) == s2.charAt(i2)) {
+      // If characters match, include them in the LCS
+      return LCS(s1, s2, i1 - 1, i2 - 1) + s1.charAt(i1);
+    } else {
+      // Otherwise, choose the longer LCS between excluding one character from either string
+      String lcs1 = LCS(s1, s2, i1 - 1, i2);
+      String lcs2 = LCS(s1, s2, i1, i2 - 1);
+      return (lcs1.length() > lcs2.length()) ? lcs1 : lcs2;
+    }
+  }
+
   // Memoization Solution
   int LCS_memoization(String s1, String s2, int i1, int i2, int[][] dp) {
     if (i1 < 0 || i2 < 0) return 0; else {
@@ -63,19 +79,22 @@ public class LongestCommonSubsequence {
     System.out.println(
       ob.LCS_recursion(s1, s2, s1.length() - 1, s2.length() - 1)
     );
-
-    int m = s1.length(); // Replace with your desired row size
-    int n = s2.length(); // Replace with your desired row sizecolumn size
-
-    int[][] matrix = new int[m][n];
-
-    // Fill the matrix with -1 using Arrays.fill
-    for (int i = 0; i < m; i++) {
-      Arrays.fill(matrix[i], -1);
-    }
-
     System.out.println(
-      ob.LCS_memoization(s1, s2, s1.length() - 1, s2.length() - 1, matrix)
+      ob.LCS(s1, s2, s1.length() - 1, s2.length() - 1)
     );
+
+    // int m = s1.length(); // Replace with your desired row size
+    // int n = s2.length(); // Replace with your desired row sizecolumn size
+
+    // int[][] matrix = new int[m][n];
+
+    // // Fill the matrix with -1 using Arrays.fill
+    // for (int i = 0; i < m; i++) {
+    //   Arrays.fill(matrix[i], -1);
+    // }
+
+    // System.out.println(
+    //   ob.LCS_memoization(s1, s2, s1.length() - 1, s2.length() - 1, matrix)
+    // );
   }
 }
