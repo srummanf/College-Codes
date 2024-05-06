@@ -9,7 +9,7 @@ public class Learn_bst {
 
     int data;
     Node left;
-    Node right;
+    Node right;theme
 
     Node(int data) {
       this.data = data;

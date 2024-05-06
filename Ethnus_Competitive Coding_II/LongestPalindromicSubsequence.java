@@ -15,7 +15,7 @@ public class LongestPalindromicSubsequence {
       return findLongestPalindrome(X, i + 1, j - 1) + 2;
     }
 
-    return Integer.max(
+    return Math.max(
       findLongestPalindrome(X, i, j - 1),
       findLongestPalindrome(X, i + 1, j)
     );
